@@ -9,8 +9,8 @@ import {themes as prismThemes} from 'prism-react-renderer';
 //   GITHUB_REPO -> the repository name this site will live in
 // They control the GitHub Pages URL: https://GITHUB_ORG.github.io/GITHUB_REPO/
 // ---------------------------------------------------------------------------
-const GITHUB_ORG = 'your-github-org';
-const GITHUB_REPO = 'eks-pipeline-lessons';
+const GITHUB_ORG = 'Taingchilim12';
+const GITHUB_REPO = 'eks-cdk-pipeline-lessons';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
