@@ -1,0 +1,48 @@
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.lessonGrid {
+  padding: 3rem 0;
+}
+
+.lessonCard {
+  display: block;
+  height: 100%;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.lessonCard:hover {
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-2px);
+  text-decoration: none;
+  color: var(--ifm-font-color-base);
+}
+
+.lessonCard p {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-700);
+}
