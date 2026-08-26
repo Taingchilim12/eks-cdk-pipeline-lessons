@@ -168,7 +168,6 @@ const config = {
         ],
         copyright: `Copyright © ${new Date().getFullYear()} — Built by Taing Chilim.`,
       },
->>>>>>> 49a63fe (update content to align with actual source code)
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
