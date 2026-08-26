@@ -91,41 +91,6 @@ const config = {
           },
         ],
       },
-  footer: {
-  style: 'dark',
-  links: [
-    {
-      title: 'Lessons',
-      items: [
-        {label: 'Start here', to: '/intro'},
-        {label: 'Architecture', to: '/architecture'},
-        {label: 'Deployment Walkthrough', to: '/deployment-walkthrough'},
-      ],
-    },
-    {
-      title: 'More',
-      items: [
-        {
-          label: 'Lesson Site Repo',
-          href: `https://github.com/${GITHUB_ORG}/${GITHUB_REPO}`,
-        },
-        {
-          label: 'CDK Source (eks-cdk-sample)',
-          href: 'https://github.com/Taingchilim12/eks-cdk-sample',
-        },
-        {
-          label: 'AWS CDK Docs',
-          href: 'https://docs.aws.amazon.com/cdk/',
-        },
-        {
-          label: 'Karpenter Docs',
-          href: 'https://karpenter.sh/',
-        },
-      ],
-    },
-  ],
-  copyright: `Copyright © ${new Date().getFullYear()} — Built by Taing Chilim.`,
-},
       footer: {
         style: 'dark',
         links: [

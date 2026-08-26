@@ -45,16 +45,6 @@ flowchart LR
    pipelines are meant for fast iteration, so nothing blocks on a manual
    approve.
 
-<<<<<<< HEAD
-## Where this is configured
-
-All of this lives in `lib/config/environments.ts`. Each environment entry
-defines the branch, target account/region, VPC CIDR, EKS cluster name, and
-whether approval is required. Changing an environment's behavior means
-editing this one file — nothing about the pipeline stack logic needs to
-change for routine adjustments like "bump the cluster name" or "flip
-approval off."
-=======
 ## What actually runs in each environment
 
 Environments don't just differ by branch and account — `environments.ts`
@@ -94,6 +84,5 @@ NGINX/ALB Controller/Karpenter versions and values. Changing an
 environment's behavior means editing this one file — nothing about the
 pipeline stack logic needs to change for routine adjustments like "bump the
 cluster name," "flip approval off," or "enable ArgoCD in staging."
->>>>>>> 49a63fe (update content to align with actual source code)
 
 Next: [Project Structure →](/project-structure)

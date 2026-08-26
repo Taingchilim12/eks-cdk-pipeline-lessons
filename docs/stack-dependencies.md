@@ -26,9 +26,6 @@ flowchart TD
 - **K8s stack depends on Karpenter**, specifically because the Karpenter Helm
   chart's values need the **IAM role ARN and SQS queue URL** that the
   Karpenter stack creates. Without that dependency, CDK might try to deploy
-<<<<<<< HEAD
-  the Helm release before the resources it references exist.
-=======
   the Helm release before the resources it references exist. In code, this
   is the *only* explicit cross-stack dependency in the whole stage:
 
@@ -61,7 +58,6 @@ The reason the **ALB Controller deploys first**: its admission webhook needs
 to be ready before Karpenter's CRDs are applied. Skipping this ordering can
 produce flaky first-deploys where Karpenter resources get created before the
 webhook that validates them is listening.
->>>>>>> 49a63fe (update content to align with actual source code)
 
 ## Why the K8s stack uses `fromClusterAttributes`
 

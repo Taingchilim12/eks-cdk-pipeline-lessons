@@ -23,35 +23,23 @@ flowchart TB
     end
 
     subgraph K8SSTACK["K8s Stack (Kubernetes resources)"]
-<<<<<<< HEAD
-        CRD["Karpenter CRD Helm Chart"]
-        CTRLCHART["Karpenter Controller Helm Chart"]
-        NC["Default EC2NodeClass\nAL2023, karpenter.sh/discovery tags"]
-        NP["Default NodePool\nspot + on-demand\nc5/c6i/m5/m6i.xlarge"]
-=======
         ALB["AWS LB Controller\nHelm chart (deploys first)"]
         CRD["Karpenter CRD Helm Chart"]
         CTRLCHART["Karpenter Controller Helm Chart"]
         NC["Default EC2NodeClass\nAL2023, karpenter.sh/discovery tags"]
         NP["Default NodePool\nspot + on-demand"]
->>>>>>> 49a63fe (update content to align with actual source code)
     end
 
     CTRL --> PID
     PID --> CTRLCHART
     SQS --> CTRLCHART
     NODE --> NC
-<<<<<<< HEAD
-=======
     ALB --> CRD
->>>>>>> 49a63fe (update content to align with actual source code)
     CRD --> CTRLCHART
     CTRLCHART --> NC
     NC --> NP
 ```
 
-<<<<<<< HEAD
-=======
 ## Before Karpenter can run: a bootstrap node group
 
 Karpenter's own controller pod has to run *somewhere* before it can start
@@ -98,7 +86,6 @@ ALB Controller's **admission webhook** needs to already be listening before
 other charts create resources it might need to validate — deploying it
 first avoids race conditions on a fresh cluster bootstrap.
 
->>>>>>> 49a63fe (update content to align with actual source code)
 ## Why interruption handling matters
 
 Spot instances can be reclaimed by AWS with **2 minutes' notice**. The SQS
@@ -112,11 +99,6 @@ means workloads get killed with no warning.
 
 Out of the box, the K8s Stack deploys a NodePool that mixes:
 
-<<<<<<< HEAD
-- **Capacity types**: spot + on-demand (Karpenter picks the cheapest
-  available spot capacity, falling back to on-demand)
-- **Instance families**: `c5`, `c6i`, `m5`, `m6i` at `.xlarge`
-=======
 - **Capacity types**: `spot` + `on-demand` — Karpenter tries spot first,
   falls back to on-demand
 - **Instance types**: `c5.xlarge`, `c5a.xlarge`, `c6i.xlarge`, `m5.xlarge`,
@@ -134,7 +116,6 @@ disruption: {
   consolidateAfter: '1m',
 },
 ```
->>>>>>> 49a63fe (update content to align with actual source code)
 
 This is a reasonable general-purpose starting point. Teams typically layer
 additional NodePools on top for specialized workloads (GPU, memory-optimized,
@@ -143,18 +124,10 @@ etc.) once they know their workload shape.
 ## Why Pod Identity, and why before addons
 
 Pod Identity associations are created **before** the addons that need them.
-<<<<<<< HEAD
-If a pod identity mapping doesn't exist yet when a CSI driver or the
-Karpenter controller starts, it can hit a **credential race condition** —
-starting up without permissions and either crash-looping or silently failing
-API calls until the association is picked up. Ordering the stacks so IAM/Pod
-Identity exists first avoids that entirely.
-=======
 If a pod identity mapping doesn't exist yet when a CSI driver, the ALB
 Controller, or the Karpenter controller starts, it can hit a **credential
 race condition** — starting up without permissions and either crash-looping
 or silently failing API calls until the association is picked up. Ordering
 the stacks so IAM/Pod Identity exists first avoids that entirely.
->>>>>>> 49a63fe (update content to align with actual source code)
 
 Next: [GitFlow Workflow →](/gitflow-workflow)
