@@ -18,7 +18,11 @@ cdk/my-pipeline/
 │   ├── my-pipeline-inf-stage.ts            # Infrastructure stage
 │   ├── my-pipeline-vpc-stack.ts            # VPC stack (NAT or TGW egress)
 │   ├── my-pipeline-eks-stack.ts            # EKS cluster + node group + core addons
+<<<<<<< HEAD
 │   ├── my-pipeline-eks-addons-stack.ts     # CSI drivers with Pod Identity
+=======
+│   ├── my-pipeline-eks-addons-stack.ts     # CSI drivers + ALB Controller IAM/Pod Identity
+>>>>>>> 49a63fe (update content to align with actual source code)
 │   ├── my-pipeline-karpenter-stack.ts      # Karpenter IAM, SQS, EventBridge, Pod Identity
 │   └── my-pipeline-k8s-stack.ts            # Helm charts + K8s manifests (Karpenter, Ingress)
 ├── cdk.json

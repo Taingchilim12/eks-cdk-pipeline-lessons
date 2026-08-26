@@ -57,9 +57,30 @@ outbound — routes through the Transit Gateway. Load balancers created in the
 | Typical use | Standalone accounts, early environments | Multi-account landing zones with centralized network control |
 | Internet-facing load balancers | Supported | Not supported (everything is internal) |
 
+<<<<<<< HEAD
 Most teams start with `nat-gateway` for `feature`/`dev` and move to
 `transit-gateway` for `stag`/`prod` once a landing zone's shared network is
 in place — but this is purely a per-environment config choice, not a code
 change.
+=======
+This project uses exactly that split: `feature`/`dev` run `nat-gateway`,
+`stag`/`prod` run `transit-gateway` — a per-environment config choice, not a
+code change.
+
+## How the Transit Gateway is found
+
+In `transit-gateway` mode, the VPC stack doesn't take a hardcoded TGW ID.
+Instead it looks one up **at deploy time** via an `AwsCustomResource` that
+calls `ec2:DescribeTransitGateways`, filtered by tags:
+
+```typescript
+tgwLookupTags: { Owner: 'chilim', Name: 'rnv-tgw' },
+```
+
+This means the actual Transit Gateway can be recreated, replaced, or live in
+a completely different account's shared networking stack, and this project
+will still find it correctly as long as the tags match — no ID to update by
+hand when infrastructure changes upstream.
+>>>>>>> 49a63fe (update content to align with actual source code)
 
 Next: [Karpenter →](/karpenter)

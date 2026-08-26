@@ -26,7 +26,42 @@ flowchart TD
 - **K8s stack depends on Karpenter**, specifically because the Karpenter Helm
   chart's values need the **IAM role ARN and SQS queue URL** that the
   Karpenter stack creates. Without that dependency, CDK might try to deploy
+<<<<<<< HEAD
   the Helm release before the resources it references exist.
+=======
+  the Helm release before the resources it references exist. In code, this
+  is the *only* explicit cross-stack dependency in the whole stage:
+
+  ```typescript
+  this.k8sStack.addDependency(this.karpenterStack);
+  ```
+
+  Every other ordering (VPC → EKS, EKS → Addons, EKS → Karpenter) is
+  **inferred automatically by CDK** because those stacks receive the
+  cluster or VPC object as a constructor prop — a cross-stack reference
+  implies a dependency, no explicit `addDependency` needed.
+
+## Ordering *inside* the K8s stack
+
+The five stacks above are the CloudFormation-level ordering. Inside the K8s
+stack itself, the Helm charts and manifests have their own dependency chain,
+enforced with `.node.addDependency(...)` on each construct:
+
+```mermaid
+flowchart LR
+    ALB["AWS LB Controller\nHelm chart"] --> KCRD["Karpenter CRD\nHelm chart"]
+    KCRD --> KCTRL["Karpenter Controller\nHelm chart"]
+    KCTRL --> NC["Default EC2NodeClass"]
+    NC --> NP["Default NodePool"]
+    ALB --> ARGO["ArgoCD\nHelm chart (if enabled)"]
+    KCTRL --> ING["Ingress NGINX\nHelm chart (if enabled)"]
+```
+
+The reason the **ALB Controller deploys first**: its admission webhook needs
+to be ready before Karpenter's CRDs are applied. Skipping this ordering can
+produce flaky first-deploys where Karpenter resources get created before the
+webhook that validates them is listening.
+>>>>>>> 49a63fe (update content to align with actual source code)
 
 ## Why the K8s stack uses `fromClusterAttributes`
 
