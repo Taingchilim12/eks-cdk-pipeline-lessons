@@ -126,7 +126,6 @@ const config = {
   ],
   copyright: `Copyright © ${new Date().getFullYear()} — Built by Taing Chilim.`,
 },
-=======
       footer: {
         style: 'dark',
         links: [
